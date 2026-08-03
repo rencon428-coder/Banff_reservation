@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import { chromium } from "playwright";
-import { evaluateInventory, formatDailySummary, formatNotification } from "./rules.mjs";
+import { evaluateInventory, formatNotification, formatStatusSummary } from "./rules.mjs";
 
 const BOOKING_URL = "https://roamtransit.betterez.com/cart/607a075d39c0361ea1fe027a/reservation/64593b39b59d9c077f9bee55";
 const STATE_PATH = "state.json";
@@ -112,12 +112,7 @@ async function main() {
     }).formatToParts(now).filter((part) => part.type !== "literal").map((part) => [part.type, part.value]));
     const localDate = `${parts.year}-${parts.month}-${parts.day}`;
     const checkedAt = `${localDate} ${parts.hour}:${parts.minute}`;
-    const dailyDue = Number(parts.hour) >= 9 && state.lastDailySummaryDate !== localDate;
-
-    if (dailyDue) {
-      await fs.writeFile(DAILY_OUTPUT_PATH, `${formatDailySummary(inventory, BOOKING_URL, checkedAt)}\n`, "utf8");
-      result.state.lastDailySummaryDate = localDate;
-    }
+    await fs.writeFile(DAILY_OUTPUT_PATH, `${formatStatusSummary(inventory, BOOKING_URL, checkedAt)}\n`, "utf8");
     await fs.writeFile(STATE_PATH, `${JSON.stringify(result.state, null, 2)}\n`, "utf8");
     if (result.notices.length) {
       await fs.writeFile(OUTPUT_PATH, `${formatNotification(result.notices, BOOKING_URL)}\n`, "utf8");
