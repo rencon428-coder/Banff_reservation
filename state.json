@@ -1,0 +1,37 @@
+{
+  "baselineCheckedAt": "2026-08-01T06:53:00-07:00",
+  "lastSuccessfulCheck": null,
+  "lastInventory": {
+    "2026-09-10": {
+      "outbound": [
+        { "departure": "06:00", "available": false, "seats": 0 },
+        { "departure": "07:00", "available": false, "seats": 0 },
+        { "departure": "08:20", "available": false, "seats": 0 },
+        { "departure": "09:20", "available": false, "seats": 0 },
+        { "departure": "10:15", "available": false, "seats": 0 }
+      ],
+      "inbound": []
+    },
+    "2026-09-11": {
+      "outbound": [
+        { "departure": "06:00", "available": false, "seats": 0 },
+        { "departure": "07:00", "available": false, "seats": 0 },
+        { "departure": "08:20", "available": false, "seats": 0 },
+        { "departure": "09:20", "available": false, "seats": 0 },
+        { "departure": "10:15", "available": false, "seats": 0 }
+      ],
+      "inbound": []
+    }
+  },
+  "notifiedSignatures": [
+    "2026-09-11|inbound|07:05|available|unknown",
+    "2026-09-11|inbound|08:12|available|unknown",
+    "2026-09-11|inbound|09:27|available|23",
+    "2026-09-11|inbound|10:24|available|unknown",
+    "2026-09-11|inbound|11:14|available|unknown",
+    "2026-09-11|inbound|12:12|available|unknown",
+    "2026-09-11|inbound|13:52|available|15",
+    "2026-09-11|inbound|14:47|available|23",
+    "2026-09-11|inbound|15:44|available|1"
+  ]
+}
