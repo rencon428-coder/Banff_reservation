@@ -112,3 +112,30 @@ export function formatNotification(notices, bookingUrl) {
   lines.push(`[予約変更・空席確認ページ](${bookingUrl})`);
   return lines.join("\n");
 }
+
+export function formatDailySummary(inventory, bookingUrl, checkedAt) {
+  const limits = {
+    outbound: toMinutes("10:15"),
+    inbound: toMinutes("21:00")
+  };
+  const lines = ["## Roam Transit 8X 日次空席サマリー", "", `確認時刻: ${checkedAt} PT`, ""];
+
+  for (const date of ["2026-09-10", "2026-09-11"]) {
+    lines.push(`### ${date}`, "");
+    const day = inventory[date];
+    for (const [direction, label] of [["outbound", "往路"], ["inbound", "復路"]]) {
+      const eligible = (day?.[direction] ?? []).filter((trip) =>
+        trip.available && toMinutes(trip.departure) <= limits[direction]
+      );
+      if (eligible.length) {
+        lines.push(`- ${label}: ${eligible.map((trip) => `${trip.departure}（${seatText(trip.seats)}）`).join("、")}`);
+      } else {
+        lines.push(`- ${label}: 対象時刻内の予約可能便なし`);
+      }
+    }
+    lines.push("");
+  }
+
+  lines.push(`[予約変更・空席確認ページ](${bookingUrl})`);
+  return lines.join("\n");
+}
