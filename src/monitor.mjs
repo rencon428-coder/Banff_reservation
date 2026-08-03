@@ -90,13 +90,15 @@ async function searchDate(browser, date) {
     const outbound = await readTripCards(page);
     const selectable = page.locator('.trip-list [role=listitem] input[type="radio"]');
     const selectableCount = await selectable.count();
-    if (selectableCount === 0) throw new Error(`No selectable outbound trip on ${date}; return inventory cannot be checked`);
+    if (selectableCount === 0) {
+      return { outbound, inbound: [], inboundChecked: false };
+    }
 
     await selectable.first().check();
     const next = page.getByRole("button", { name: "Next", exact: false });
     await next.click();
     const inbound = await readTripCards(page);
-    return { outbound, inbound };
+    return { outbound, inbound, inboundChecked: true };
   } finally {
     await page.close();
   }
