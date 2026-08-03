@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { evaluateInventory, formatNotification } from "../src/rules.mjs";
+import { evaluateInventory, formatDailySummary, formatNotification } from "../src/rules.mjs";
 
 const trip = (departure, available, seats = null) => ({ departure, available, seats });
 const emptyState = { notifiedSignatures: [] };
@@ -61,4 +61,21 @@ test("notification includes date and booking link", () => {
   assert.match(text, /2026-09-11/);
   assert.match(text, /往路 09:20/);
   assert.match(text, /https:\/\/example\.test\/change/);
+});
+
+test("daily summary includes available target trips and explicit empty states", () => {
+  const text = formatDailySummary({
+    "2026-09-10": {
+      outbound: [trip("09:20", true, 2), trip("11:02", true, 8)],
+      inbound: []
+    },
+    "2026-09-11": {
+      outbound: [],
+      inbound: [trip("15:44", true, 1), trip("21:00", true, 4)]
+    }
+  }, "https://example.test/change", "2026-08-03 09:05");
+  assert.match(text, /往路: 09:20（残り2席）/);
+  assert.doesNotMatch(text, /11:02/);
+  assert.match(text, /復路: 15:44（残り1席）、21:00（残り4席）/);
+  assert.match(text, /対象時刻内の予約可能便なし/);
 });
