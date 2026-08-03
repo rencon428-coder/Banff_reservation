@@ -51,7 +51,7 @@ jobs:
           if [ -s notification.md ]; then
             gh issue comment 1 --repo "$GITHUB_REPOSITORY" --body-file notification.md
           fi
-      - name: Post one daily availability summary
+      - name: Post current availability after every successful check
         if: steps.window.outputs.active == 'true' && hashFiles('daily-summary.md') != ''
         env:
           GH_TOKEN: ${{ github.token }}
