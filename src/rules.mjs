@@ -124,6 +124,10 @@ export function formatStatusSummary(inventory, bookingUrl, checkedAt) {
     lines.push(`### ${date}`, "");
     const day = inventory[date];
     for (const [direction, label] of [["outbound", "往路"], ["inbound", "復路"]]) {
+      if (direction === "inbound" && day?.inboundChecked === false) {
+        lines.push(`- ${label}: 往路が全便満席のため予約画面で確認できず`);
+        continue;
+      }
       const eligible = (day?.[direction] ?? []).filter((trip) =>
         trip.available && toMinutes(trip.departure) <= limits[direction]
       );
