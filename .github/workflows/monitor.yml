@@ -10,6 +10,8 @@ on:
       - main
     paths:
       - .github/workflows/monitor.yml
+      - src/**
+      - package.json
 
 concurrency:
   group: roam-transit-monitor
