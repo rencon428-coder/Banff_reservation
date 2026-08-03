@@ -1,10 +1,11 @@
 import fs from "node:fs/promises";
 import { chromium } from "playwright";
-import { evaluateInventory, formatNotification } from "./rules.mjs";
+import { evaluateInventory, formatDailySummary, formatNotification } from "./rules.mjs";
 
 const BOOKING_URL = "https://roamtransit.betterez.com/cart/607a075d39c0361ea1fe027a/reservation/64593b39b59d9c077f9bee55";
 const STATE_PATH = "state.json";
 const OUTPUT_PATH = "notification.md";
+const DAILY_OUTPUT_PATH = "daily-summary.md";
 const DATES = ["2026-09-10", "2026-09-11"];
 
 const ariaDate = (date) => {
@@ -96,12 +97,27 @@ async function searchDate(browser, date) {
 
 async function main() {
   await fs.writeFile(OUTPUT_PATH, "", "utf8");
+  await fs.writeFile(DAILY_OUTPUT_PATH, "", "utf8");
   const state = JSON.parse(await fs.readFile(STATE_PATH, "utf8"));
   const browser = await chromium.launch({ headless: true });
   try {
     const inventory = {};
     for (const date of DATES) inventory[date] = await searchDate(browser, date);
     const result = evaluateInventory(inventory, state);
+    const now = new Date();
+    const parts = Object.fromEntries(new Intl.DateTimeFormat("en-CA", {
+      timeZone: "America/Los_Angeles",
+      year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit",
+      minute: "2-digit", hourCycle: "h23"
+    }).formatToParts(now).filter((part) => part.type !== "literal").map((part) => [part.type, part.value]));
+    const localDate = `${parts.year}-${parts.month}-${parts.day}`;
+    const checkedAt = `${localDate} ${parts.hour}:${parts.minute}`;
+    const dailyDue = Number(parts.hour) >= 9 && state.lastDailySummaryDate !== localDate;
+
+    if (dailyDue) {
+      await fs.writeFile(DAILY_OUTPUT_PATH, `${formatDailySummary(inventory, BOOKING_URL, checkedAt)}\n`, "utf8");
+      result.state.lastDailySummaryDate = localDate;
+    }
     await fs.writeFile(STATE_PATH, `${JSON.stringify(result.state, null, 2)}\n`, "utf8");
     if (result.notices.length) {
       await fs.writeFile(OUTPUT_PATH, `${formatNotification(result.notices, BOOKING_URL)}\n`, "utf8");
@@ -116,6 +132,7 @@ async function main() {
 
 main().catch(async (error) => {
   await fs.writeFile(OUTPUT_PATH, "", "utf8").catch(() => {});
+  await fs.writeFile(DAILY_OUTPUT_PATH, "", "utf8").catch(() => {});
   console.error(`Monitor unavailable: ${error.message}`);
   console.log("::SKIP_COMPLETION::");
   process.exitCode = 0;
