@@ -42,6 +42,7 @@ async function selectDate(page, inputId, date) {
   await page.locator(`#${inputId}`).click();
   const root = page.locator(`#${inputId}_root`);
   const label = ariaDate(date);
+  const [yearNumber, monthNumber, dayNumber] = date.split("-").map(Number);
   const targetMonth = new Date(`${date}T12:00:00Z`).toLocaleString("en-US", { month: "long", timeZone: "UTC" });
 
   for (let attempts = 0; attempts < 14; attempts += 1) {
@@ -51,8 +52,14 @@ async function selectDate(page, inputId, date) {
     await root.getByRole("button", { name: "Next month", exact: true }).click();
   }
 
-  const cell = root.getByRole("gridcell", { name: label, exact: true });
-  if (await cell.count() !== 1) throw new Error(`Date cell not found: ${label}`);
+  const pickValue = await page.evaluate(
+    ({ year, month, day }) => new Date(year, month - 1, day).getTime(),
+    { year: yearNumber, month: monthNumber, day: dayNumber }
+  );
+  const cell = root.locator(`.picker__day--infocus[data-pick="${pickValue}"]`);
+  if (await cell.count() !== 1) {
+    throw new Error(`Date cell not found: ${label} (data-pick=${pickValue})`);
+  }
   await cell.click();
 }
 
