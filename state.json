@@ -1,26 +1,188 @@
 {
   "baselineCheckedAt": "2026-08-01T06:53:00-07:00",
-  "lastSuccessfulCheck": null,
+  "lastSuccessfulCheck": "2026-08-03T18:54:44.667Z",
   "lastInventory": {
     "2026-09-10": {
       "outbound": [
-        { "departure": "06:00", "available": false, "seats": 0 },
-        { "departure": "07:00", "available": false, "seats": 0 },
-        { "departure": "08:20", "available": false, "seats": 0 },
-        { "departure": "09:20", "available": false, "seats": 0 },
-        { "departure": "10:15", "available": false, "seats": 0 }
+        {
+          "departure": "06:00",
+          "available": false,
+          "seats": 0
+        },
+        {
+          "departure": "07:00",
+          "available": false,
+          "seats": 0
+        },
+        {
+          "departure": "08:20",
+          "available": false,
+          "seats": 0
+        },
+        {
+          "departure": "09:20",
+          "available": false,
+          "seats": 0
+        },
+        {
+          "departure": "10:15",
+          "available": false,
+          "seats": 0
+        },
+        {
+          "departure": "11:02",
+          "available": false,
+          "seats": 0
+        },
+        {
+          "departure": "12:02",
+          "available": false,
+          "seats": 0
+        },
+        {
+          "departure": "12:40",
+          "available": false,
+          "seats": 5
+        },
+        {
+          "departure": "13:30",
+          "available": false,
+          "seats": 22
+        },
+        {
+          "departure": "14:27",
+          "available": false,
+          "seats": 23
+        },
+        {
+          "departure": "15:27",
+          "available": false,
+          "seats": null
+        },
+        {
+          "departure": "16:02",
+          "available": false,
+          "seats": null
+        },
+        {
+          "departure": "16:59",
+          "available": false,
+          "seats": null
+        },
+        {
+          "departure": "17:49",
+          "available": false,
+          "seats": null
+        },
+        {
+          "departure": "18:54",
+          "available": false,
+          "seats": null
+        },
+        {
+          "departure": "19:51",
+          "available": false,
+          "seats": null
+        },
+        {
+          "departure": "21:40",
+          "available": false,
+          "seats": null
+        }
       ],
-      "inbound": []
+      "inbound": [],
+      "inboundChecked": false
     },
     "2026-09-11": {
       "outbound": [
-        { "departure": "06:00", "available": false, "seats": 0 },
-        { "departure": "07:00", "available": false, "seats": 0 },
-        { "departure": "08:20", "available": false, "seats": 0 },
-        { "departure": "09:20", "available": false, "seats": 0 },
-        { "departure": "10:15", "available": false, "seats": 0 }
+        {
+          "departure": "06:00",
+          "available": false,
+          "seats": 0
+        },
+        {
+          "departure": "07:00",
+          "available": false,
+          "seats": 0
+        },
+        {
+          "departure": "08:20",
+          "available": false,
+          "seats": 0
+        },
+        {
+          "departure": "09:20",
+          "available": false,
+          "seats": 1
+        },
+        {
+          "departure": "10:15",
+          "available": false,
+          "seats": 1
+        },
+        {
+          "departure": "11:02",
+          "available": false,
+          "seats": 2
+        },
+        {
+          "departure": "12:02",
+          "available": false,
+          "seats": 0
+        },
+        {
+          "departure": "12:40",
+          "available": false,
+          "seats": 17
+        },
+        {
+          "departure": "13:30",
+          "available": false,
+          "seats": null
+        },
+        {
+          "departure": "14:27",
+          "available": false,
+          "seats": 23
+        },
+        {
+          "departure": "15:27",
+          "available": false,
+          "seats": null
+        },
+        {
+          "departure": "16:02",
+          "available": false,
+          "seats": 23
+        },
+        {
+          "departure": "16:59",
+          "available": false,
+          "seats": null
+        },
+        {
+          "departure": "17:49",
+          "available": false,
+          "seats": null
+        },
+        {
+          "departure": "18:54",
+          "available": false,
+          "seats": null
+        },
+        {
+          "departure": "19:51",
+          "available": false,
+          "seats": null
+        },
+        {
+          "departure": "21:40",
+          "available": false,
+          "seats": null
+        }
       ],
-      "inbound": []
+      "inbound": [],
+      "inboundChecked": false
     }
   },
   "notifiedSignatures": [
