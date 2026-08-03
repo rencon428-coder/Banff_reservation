@@ -80,3 +80,12 @@ test("five-minute status includes available target trips and explicit empty stat
   assert.match(text, /対象時刻内の予約可能便なし/);
   assert.match(text, /5分ごとの空席状況/);
 });
+
+test("status distinguishes an inaccessible return list from no availability", () => {
+  const text = formatStatusSummary({
+    "2026-09-10": { outbound: [], inbound: [], inboundChecked: false },
+    "2026-09-11": { outbound: [], inbound: [], inboundChecked: true }
+  }, "https://example.test/change", "2026-08-03 09:05");
+  assert.match(text, /往路が全便満席のため予約画面で確認できず/);
+  assert.match(text, /復路: 対象時刻内の予約可能便なし/);
+});
