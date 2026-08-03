@@ -1,0 +1,13 @@
+{
+  "name": "banff-reservation-monitor",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "monitor": "node src/monitor.mjs",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "playwright": "1.55.0"
+  }
+}
