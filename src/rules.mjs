@@ -113,12 +113,12 @@ export function formatNotification(notices, bookingUrl) {
   return lines.join("\n");
 }
 
-export function formatDailySummary(inventory, bookingUrl, checkedAt) {
+export function formatStatusSummary(inventory, bookingUrl, checkedAt) {
   const limits = {
     outbound: toMinutes("10:15"),
     inbound: toMinutes("21:00")
   };
-  const lines = ["## Roam Transit 8X 日次空席サマリー", "", `確認時刻: ${checkedAt} PT`, ""];
+  const lines = ["## Roam Transit 8X 5分ごとの空席状況", "", `確認時刻: ${checkedAt} PT`, ""];
 
   for (const date of ["2026-09-10", "2026-09-11"]) {
     lines.push(`### ${date}`, "");
