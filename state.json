@@ -1,6 +1,6 @@
 {
   "baselineCheckedAt": "2026-08-01T06:53:00-07:00",
-  "lastSuccessfulCheck": "2026-09-01T17:00:10.419Z",
+  "lastSuccessfulCheck": "2026-09-01T19:52:41.402Z",
   "lastInventory": {
     "2026-09-10": {
       "outbound": [
@@ -47,7 +47,7 @@
         {
           "departure": "13:30",
           "available": false,
-          "seats": 3
+          "seats": 0
         },
         {
           "departure": "14:27",
